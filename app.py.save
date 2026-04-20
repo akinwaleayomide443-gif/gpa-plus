@@ -1,0 +1,61 @@
+from flask import Flask, render_template, request jsonify
+
+app = Flask(__name__)
+
+# FUTA Grading System Mapping
+GRADE_MAP = {
+    "A": 5,
+    "B": 4,
+    "C": 3,
+    "D": 2,
+    "E": 1,
+    "F": 0
+}
+
+# 100 Level Second Semester Courses from your table
+BME_COURSES = {
+    "BME 102": 1,
+    "CHE 102": 3,
+    "CHE 104": 1,
+    "CSC 102": 2,
+    "GNS 102": 2,
+    "GNS 106": 2,
+    "MEE 102": 2,
+    "MTS 102": 3,
+    "MTS 104": 3,
+    "PHY 102": 3,
+    "PHY 108": 1
+}
+
+def calculate_gpa(user_data):
+    total_points = 0
+    total_units = 0
+
+    for item in user_data:
+        course_code = item.get("code")
+        letter_grade = item.get("grade").upper()
+
+        if course_code in BME_COURSES and letter_grade in GRADE_MAP:
+            unit = BME_COURSES[course_code]
+            point = GRADE_MAP[letter_grade]
+            
+            total_points += (point * unic
+    if total_units == 0:
+        return 0.00
+
+    return round(total_points / total_units, 2)
+
+@app.route("/")
+def home():
+    # We pass the course list to the frontend so it generates the rows automatically
+    return render_template("index.html", courses=BME_COURSES)
+
+@app.route("/calculate", methods=["POST"])
+def calculate():
+    data = request.json
+    courses_input = data.get("courses", [])
+    result = calculate_gpa(courses_input)
+    return jsonify({"gpa": result})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

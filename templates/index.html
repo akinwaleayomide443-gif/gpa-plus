@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GPA Plus | Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>GPA Plus</h1>
+        
+        <div class="card goal-section">
+            <h3>🎯 Target Predictor</h3>
+            <div class="grid">
+                <input type="number" id="cur_cgpa" placeholder="Current CGPA" step="0.01">
+                <input type="number" id="units_p" placeholder="Units Completed">
+                <input type="number" id="tar_cgpa" placeholder="Target CGPA" step="0.01">
+            </div>
+            <button onclick="predict()" style="background:#38bdf8;">Analyze My Goal</button>
+            <p id="pred_res" style="margin-top:10px; font-weight:bold;"></p>
+        </div>
+
+        <hr>
+
+        <table>
+            {% for code, unit in courses.items() %}
+            <tr class="course-row" data-code="{{ code }}">
+                <td>{{ code }} ({{ unit }}U)</td>
+                <td>
+                    <select class="grade-input">
+                        <option value="A">A</option><option value="B">B</option>
+                        <option value="C">C</option><option value="D">D</option>
+                        <option value="E">E</option><option value="F">F</option>
+                    </select>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <button onclick="calc()">Calculate Semester GPA</button>
+        <h2 id="gpa_display"></h2>
+    </div>
+
+    <script>
+        async function calc() {
+            const rows = document.querySelectorAll('.course-row');
+            const courses = Array.from(rows).map(r => ({
+                code: r.dataset.code,
+                grade: r.querySelector('.grade-input').value
+            }));
+            const res = await fetch('/calculate', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({courses})
+            });
+            const d = await res.json();
+            document.getElementById('gpa_display').innerText = "GPA: " + d.gpa;
+        }
+
+        async function predict() {
+            const data = {
+                current_cgpa: document.getElementById('cur_cgpa').value,
+                units_passed: document.getElementById('units_p').value,
+                target_cgpa: document.getElementById('tar_cgpa').value
+            };
+            const res = await fetch('/predict', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            const d = await res.json();
+            document.getElementById('pred_res').innerHTML = `Needed this sem: ${d.needed_gpa} <br> ${d.status}`;
+        }
+    </script>
+</body>
+</html>
