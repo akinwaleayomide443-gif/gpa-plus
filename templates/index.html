@@ -3,59 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bionexus Pro | Academic Strategist</title>
+    <title>Bionexus Pro | V4.1</title>
     <style>
-        :root { --primary: #00d2ff; --secondary: #3a7bd5; --success: #27ae60; --warning: #f39c12; --danger: #e74c3c; --bg: #f8f9fa; --dark: #2d3436; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 15px; color: var(--dark); line-height: 1.5; }
+        :root { 
+            --primary: #00d2ff; --secondary: #3a7bd5; --success: #27ae60; --danger: #e74c3c; 
+            --bg: #f8f9fa; --card: #ffffff; --text: #2d3436; --border: rgba(0,0,0,0.05);
+        }
+        [data-theme="dark"] {
+            --bg: #121212; --card: #1e1e1e; --text: #f8f9fa; --border: rgba(255,255,255,0.1);
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 15px; color: var(--text); transition: 0.3s; }
         .dashboard { max-width: 700px; margin: auto; display: grid; gap: 20px; }
-        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); }
-        h2 { margin-top: 0; font-weight: 800; color: var(--secondary); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .card { background: var(--card); padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        h2 { margin-top: 0; font-weight: 800; color: var(--secondary); font-size: 1.1rem; text-transform: uppercase; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        label { font-size: 0.8rem; font-weight: 700; color: #636e72; display: block; margin-bottom: 5px; }
-        input, select { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px; font-size: 16px; transition: 0.3s; box-sizing: border-box; }
-        input:focus { border-color: var(--primary); outline: none; }
-        button { width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 14px; text-transform: uppercase; }
-        .btn-main { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; box-shadow: 0 4px 15px rgba(58, 123, 213, 0.3); }
-        .btn-outline { background: transparent; border: 2px solid #eee; color: #636e72; margin-top: 10px; }
-        .status-badge { padding: 15px; border-radius: 15px; text-align: center; margin-top: 15px; font-weight: bold; display: none; }
-        .combo-chip { display: inline-block; padding: 8px 12px; background: #f1f2f6; border-radius: 10px; margin: 5px; font-size: 0.85em; border-left: 4px solid #ddd; }
-        #live-feedback { margin-top: 20px; padding: 20px; border-radius: 15px; text-align: center; transition: 0.5s; border: 1px solid rgba(0,0,0,0.05); }
+        input, select { width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 12px; background: var(--card); color: var(--text); font-size: 16px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; transition: 0.2s; text-transform: uppercase; }
+        .btn-main { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+        .btn-theme { position: fixed; top: 20px; right: 20px; width: 50px; height: 50px; border-radius: 50%; background: var(--secondary); color: white; z-index: 100; border: none; font-size: 20px; cursor: pointer; }
+        .status-badge { padding: 15px; border-radius: 15px; text-align: center; margin-top: 15px; font-weight: bold; }
+        .combo-chip { display: inline-block; padding: 8px 12px; background: rgba(0,0,0,0.05); border-radius: 10px; margin: 5px; font-size: 0.85em; border-left: 4px solid var(--primary); }
+        #live-feedback { margin-top: 20px; padding: 20px; border-radius: 15px; text-align: center; border: 2px dashed var(--border); transition: 0.4s; }
+        
+        /* CREDITS FOOTER */
+        .footer { text-align: center; margin-top: 40px; padding: 30px; border-top: 1px solid var(--border); opacity: 0.8; }
+        .credits-text { font-size: 0.85rem; color: var(--text); }
+        .dev-name { font-weight: bold; color: var(--secondary); }
+
         @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
     </style>
 </head>
-<body>
+<body data-theme="light">
+
+<button class="btn-theme" onclick="toggleTheme()">🌓</button>
 
 <div class="dashboard">
     <div style="text-align: center; padding: 10px 0;">
-        <h1 style="margin:0; font-size: 2.2em; letter-spacing: -1px;">Bionexus<span style="color: var(--primary);">Pro</span></h1>
-        <p style="color: #636e72; font-size: 0.9rem; margin-top: 5px;">Class Rep's Academic Suite | BME '29</p>
+        <h1 style="margin:0; font-size: 2.2em;">Bionexus<span style="color: var(--primary);">Pro</span></h1>
+        <p style="opacity: 0.7;">Official Academic Suite | BME '29</p>
     </div>
 
     <div class="card">
         <h2>📊 Performance Setup</h2>
         <div class="grid-2">
-            <div>
-                <label>1st Sem Points (TQP1)</label>
-                <input type="number" id="tqp1" placeholder="e.g. 85.5" oninput="autoSave()">
-            </div>
-            <div>
-                <label>1st Sem Units (TCU1)</label>
-                <input type="number" id="tcu1" placeholder="e.g. 19" oninput="autoSave()">
-            </div>
+            <div><label style="font-size: 0.8rem;">TQP1 (Points)</label><input type="number" id="tqp1" oninput="autoSave()"></div>
+            <div><label style="font-size: 0.8rem;">TCU1 (Units)</label><input type="number" id="tcu1" oninput="autoSave()"></div>
         </div>
-        <div style="margin-top:15px;">
-            <label>2nd Sem Total Units (TCU2)</label>
-            <input type="number" id="tcu2" value="23" oninput="autoSave()">
-        </div>
+        <div style="margin-top:15px;"><label style="font-size: 0.8rem;">2nd Sem Units (TCU2)</label><input type="number" id="tcu2" value="23" oninput="autoSave()"></div>
     </div>
 
     <div class="card">
         <h2>🎯 Target Strategy</h2>
-        <label>Goal CGPA (0.00 - 5.00)</label>
-        <input type="number" id="target_cgpa" placeholder="4.50" step="0.01">
+        <input type="number" id="target_cgpa" placeholder="Goal CGPA (e.g. 4.50)" step="0.01">
         <button class="btn-main" onclick="generateStrategy()" style="margin-top:15px;">Generate Battle Plan</button>
-        
-        <div id="target-report" class="status-badge"></div>
+        <div id="target-report" class="status-badge" style="display:none;"></div>
         <div id="combo-report" style="margin-top:15px; text-align: center;"></div>
     </div>
 
@@ -63,29 +64,51 @@
         <h2>📝 GPA Reality Check</h2>
         <div id="predictor-list">
             <div class="grid-2" style="margin-bottom: 10px;">
-                <input type="text" placeholder="Course Code" style="flex: 2;">
+                <input type="text" placeholder="MTS 102">
                 <div style="display:flex; gap:5px;">
                     <select class="unit-in" onchange="liveSync()"><option value="3">3U</option><option value="2">2U</option><option value="1">1U</option></select>
                     <select class="grade-in" onchange="liveSync()"><option value="5">A</option><option value="4">B</option><option value="3">C</option><option value="2">D</option><option value="0">F</option></select>
                 </div>
             </div>
         </div>
-        <button class="btn-outline" onclick="addRow()">+ Add Course Row</button>
+        <div class="grid-2" style="margin-top:10px;">
+            <button class="btn-main" style="background: #95a5a6;" onclick="autoFillPredictor()">✨ Auto-Fill Goal</button>
+            <button class="btn-main" style="background: #34495e;" onclick="addRow()">+ Add Course</button>
+        </div>
         
-        <div id="live-feedback" style="background: #eee; color: #666;">
-            <span style="font-size: 0.9rem;">Start predicting grades to see your gap analysis</span><br>
-            <strong style="font-size: 1.5rem;" id="pred-val">0.00</strong>
+        <div id="live-feedback">
+            <span id="status-text">Status: Pending Target</span><br>
+            <strong style="font-size: 1.8rem;" id="pred-val">0.00</strong><br>
+            <small id="gap-val"></small>
         </div>
     </div>
+
+    <footer class="footer">
+        <div class="credits-text">
+            <p><strong>Bionexus Pro v4.1</strong></p>
+            <p>Developed by <span class="dev-name">Benjamin Akinfolarin</span></p>
+            <p style="font-size: 0.75rem;">Project Lead, BME '29</p>
+            <div style="margin-top: 10px; font-style: italic; font-size: 0.7rem; opacity: 0.6;">
+                Supported by Deborah (Assistant Rep) & the BME '29 Executive Team
+            </div>
+        </div>
+    </footer>
 </div>
 
 <script>
-    // 1. DATA PERSISTENCE
+    function toggleTheme() {
+        const body = document.body;
+        const newTheme = body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    }
+
     window.onload = () => {
+        document.body.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
         document.getElementById('tqp1').value = localStorage.getItem('tqp1') || '';
         document.getElementById('tcu1').value = localStorage.getItem('tcu1') || '';
         document.getElementById('tcu2').value = localStorage.getItem('tcu2') || 23;
-        liveSync(); 
+        liveSync();
     };
 
     function autoSave() {
@@ -95,112 +118,84 @@
         liveSync();
     }
 
-    // 2. TARGET LOGIC
     function generateStrategy() {
         const target = parseFloat(document.getElementById('target_cgpa').value);
         const tqp1 = parseFloat(document.getElementById('tqp1').value) || 0;
         const tcu1 = parseFloat(document.getElementById('tcu1').value) || 0;
         const tcu2 = parseFloat(document.getElementById('tcu2').value) || 0;
 
-        // Defensive Validation
-        if (target > 5 || target < 0) return alert("Target CGPA must be between 0.00 and 5.00");
-        if (tcu1 <= 0 || tcu2 <= 0) return alert("Units must be greater than 0");
-
-        const needed_gpa = ((target * (tcu1 + tcu2)) - tqp1) / tcu2;
-        localStorage.setItem('needed_gpa', needed_gpa);
+        if (target > 5 || target < 0) return alert("Target must be 0-5");
+        
+        const needed = ((target * (tcu1 + tcu2)) - tqp1) / tcu2;
+        localStorage.setItem('needed_gpa', needed);
         
         const report = document.getElementById('target-report');
         report.style.display = 'block';
-
-        if(needed_gpa > 5) {
-            report.style.background = "#fff3cd";
-            report.style.color = "#856404";
-            report.innerHTML = `⚠️ MATHEMATICALLY IMPOSSIBLE<br><small>You need ${needed_gpa.toFixed(2)} GPA this semester.</small>`;
-            document.getElementById('combo-report').innerHTML = "";
-        } else {
-            report.style.background = "#d4edda";
-            report.style.color = "#155724";
-            report.innerHTML = `MISSION: Target a ${needed_gpa.toFixed(2)} GPA`;
-            generateGradeCombos(needed_gpa, tcu2);
-        }
+        report.style.background = needed > 5 ? "#f8d7da" : "#d4edda";
+        report.style.color = needed > 5 ? "#721c24" : "#155724";
+        report.innerHTML = needed > 5 ? `❌ Needs ${needed.toFixed(2)} (Impossible)` : `🎯 Mission: ${needed.toFixed(2)} GPA`;
+        
+        if(needed <= 5) generateGradeCombos(needed, tcu2);
         liveSync();
     }
 
-    // 3. GREEDY STRATEGY ALGORITHM
     function generateGradeCombos(needed, totalUnits) {
         let combos = document.getElementById('combo-report');
-        combos.innerHTML = `<p style="font-weight:700; font-size: 0.9rem; color:var(--dark);">FUTA Smart Strategy Breakdown:</p>`;
+        let reqPoints = Math.ceil(needed * totalUnits);
+        let c3U = Math.floor(totalUnits / 3), p = 0, A = 0, B = 0, C = 0;
 
-        let requiredPoints = Math.ceil(needed * totalUnits);
-        let courses3U = Math.floor(totalUnits / 3);
-        let leftover = totalUnits % 3;
-        let points = 0, A = 0, B = 0, C = 0;
+        while (p < reqPoints && c3U > 0) { p += 15; A++; c3U--; }
+        while (p - 3 >= reqPoints && A > 0) { p -= 3; A--; B++; }
+        while (p - 3 >= reqPoints && B > 0) { p -= 3; B--; C++; }
 
-        while (points < requiredPoints && courses3U > 0) { points += 15; A++; courses3U--; }
-        while (points - 3 >= requiredPoints && A > 0) { points -= 3; A--; B++; }
-        while (points - 3 >= requiredPoints && B > 0) { points -= 3; B--; C++; }
-
-        combos.innerHTML += `
-            <div class="combo-chip" style="border-left-color: var(--success)"><b>As (3U):</b> ${A}</div>
-            <div class="combo-chip" style="border-left-color: var(--warning)"><b>Bs (3U):</b> ${B}</div>
-            <div class="combo-chip" style="border-left-color: var(--danger)"><b>C Max:</b> ${C}</div>
-        `;
-
-        if (leftover > 0) {
-            combos.innerHTML += `
-                <p style="font-size: 0.75rem; color:#636e72; margin-top:8px;">
-                    ⚠️ ${leftover} unit(s) remaining: Protect these carefully to maintain your buffer.
-                </p>`;
-        }
+        combos.innerHTML = `<div class="combo-chip">As: ${A}</div><div class="combo-chip">Bs: ${B}</div><div class="combo-chip">Cs: ${C}</div>`;
+        localStorage.setItem('autoA', A); localStorage.setItem('autoB', B); localStorage.setItem('autoC', C);
     }
 
-    // 4. LIVE FEEDBACK & GAP ANALYSIS
-    function addRow() {
-        const div = document.createElement('div');
-        div.className = 'grid-2';
-        div.style.marginBottom = '10px';
-        div.innerHTML = `
-            <input type="text" placeholder="Course Code">
-            <div style="display:flex; gap:5px;">
-                <select class="unit-in" onchange="liveSync()"><option value="3">3U</option><option value="2">2U</option><option value="1">1U</option></select>
-                <select class="grade-in" onchange="liveSync()"><option value="5">A</option><option value="4">B</option><option value="3">C</option><option value="2">D</option><option value="0">F</option></select>
-            </div>
-        `;
-        document.getElementById('predictor-list').appendChild(div);
+    function autoFillPredictor() {
+        const A = parseInt(localStorage.getItem('autoA')) || 0;
+        const B = parseInt(localStorage.getItem('autoB')) || 0;
+        const C = parseInt(localStorage.getItem('autoC')) || 0;
+        if(!A && !B && !C) return alert("Generate a Battle Plan first!");
+        
+        const list = document.getElementById('predictor-list');
+        list.innerHTML = "";
+        for(let i=0; i<A; i++) addRowWithData(3, 5);
+        for(let i=0; i<B; i++) addRowWithData(3, 4);
+        for(let i=0; i<C; i++) addRowWithData(3, 3);
         liveSync();
     }
+
+    function addRowWithData(u, g) {
+        const div = document.createElement('div');
+        div.className = 'grid-2'; div.style.marginBottom = '10px';
+        div.innerHTML = `<input type="text" placeholder="Course"><div style="display:flex; gap:5px;">
+            <select class="unit-in" onchange="liveSync()"><option value="3" ${u==3?'selected':''}>3U</option><option value="2" ${u==2?'selected':''}>2U</option><option value="1" ${u==1?'selected':''}>1U</option></select>
+            <select class="grade-in" onchange="liveSync()"><option value="5" ${g==5?'selected':''}>A</option><option value="4" ${g==4?'selected':''}>B</option><option value="3" ${g==3?'selected':''}>C</option><option value="2" ${g==2?'selected':''}>D</option></select>
+        </div>`;
+        document.getElementById('predictor-list').appendChild(div);
+    }
+
+    function addRow() { addRowWithData(3, 5); }
 
     function liveSync() {
         const units = document.getElementsByClassName('unit-in');
         const grades = document.getElementsByClassName('grade-in');
         const needed = parseFloat(localStorage.getItem('needed_gpa'));
-        let feedbackBox = document.getElementById('live-feedback');
+        const feedback = document.getElementById('live-feedback');
 
-        let points = 0, totalU = 0;
-        for(let i=0; i<units.length; i++) {
-            points += (parseInt(units[i].value) * parseInt(grades[i].value));
-            totalU += parseInt(units[i].value);
-        }
-        const pred = totalU > 0 ? points / totalU : 0;
+        let p = 0, u = 0;
+        for(let i=0; i<units.length; i++) { p += (units[i].value * grades[i].value); u += parseInt(units[i].value); }
+        const pred = u > 0 ? p / u : 0;
+        document.getElementById('pred-val').innerText = pred.toFixed(2);
 
-        if (!isNaN(pred) && totalU > 0) {
-            if (needed) {
-                let gap = (pred - needed).toFixed(2);
-                let status = pred >= needed ? "🔥 ON TRACK" : "⚠️ BELOW TARGET";
-                let bgColor = pred >= needed ? "#d4edda" : "#f8d7da";
-                let textColor = pred >= needed ? "#155724" : "#721c24";
-                let sign = pred >= (needed - 0.001) ? "+" : "";
-
-                feedbackBox.style.background = bgColor;
-                feedbackBox.style.color = textColor;
-                feedbackBox.innerHTML = `
-                    <span style="font-size:0.8rem; font-weight:bold;">${status}</span><br>
-                    <strong style="font-size:1.6rem;">${pred.toFixed(2)}</strong><br>
-                    <small style="font-weight:bold;">${sign}${gap} vs required GPA</small>
-                `;
-            } else {
-                feedbackBox.innerHTML = `<span style="font-size:0.9rem;">Set target above to see gap analysis</span><br><strong style="font-size:1.6rem;">${pred.toFixed(2)}</strong>`;
-            }
+        if(needed) {
+            const gap = (pred - needed).toFixed(2);
+            const onTrack = pred >= (needed - 0.01);
+            feedback.style.background = onTrack ? "rgba(39, 174, 96, 0.2)" : "rgba(231, 76, 60, 0.2)";
+            feedback.style.color = onTrack ? "#155724" : "#721c24";
+            document.getElementById('status-text').innerText = onTrack ? "🔥 ON TRACK" : "⚠️ BELOW TARGET";
+            document.getElementById('gap-val').innerText = `${gap >= 0 ? '+' : ''}${gap} vs required GPA`;
         }
     }
 </script>
